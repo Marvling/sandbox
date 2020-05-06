@@ -1,7 +1,16 @@
+//TODO: make a class for walker
+
 var walkerPositionX;
 var walkerPositionY;
 var canvasLimitX;
 var canvasLimitY;
+
+// let pixelIndex = x + (y*width) *4;
+//create a function for getting the pixels index for R
+//create a dict, keys are for every pixel index
+//OPTIMIZE: dict has only indexes for R value, increments of four (may be map function)
+
+var positionsArray = [];
 
 function setup() {
     createCanvas(windowWidth, windowHeight);
@@ -22,11 +31,15 @@ function draw(){
     stroke(255);
     strokeWeight(2)
 
+    loadPixels()
     var r = floor(random(4));
-    console.log(r);
-    console.log(walkerPositionX,walkerPositionY);
+
+    
+
+    loadPixels();
     
     //Change color when the point hits the same coordinte more than once
+    // divide the canvas into a grid
     // when the point changes postion write the coordinates into an array
     //on the switch check if the coordinate is in the array
     // if it is chack how many instances
@@ -40,6 +53,12 @@ function draw(){
         case 0:
             if(walkerPositionX < canvasLimitX){
                 walkerPositionX += 10;
+                //call the function for getting the pixel index
+                //write true for the index on the dict
+                //if true on the dict make it false and change color
+                //OPTIMIZE: wriet 3-4 different vaules on the dict based on the times that index has been visited
+                
+                stroke(0);
             }
             break;
         case 1:
