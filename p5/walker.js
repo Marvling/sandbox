@@ -3,11 +3,29 @@
 var walkerPositionX;
 var walkerPositionY;
 
+let visitedArrays = [];
+let visitedPixels = new p5.TypedDict();
 
 
-function getPixelIndex (x,y){
+
+function getPixelValueR (x,y){
+    loadPixels();
     let redIndex = x + (y*width) * 4
     return pixels[redIndex]
+}
+
+function getPixelValueBrightness (x,y){
+    loadPixels();
+    let index = x + (y*width) * 4
+    let brightTimesThree = pixels[index + 0] +
+                           pixels[index + 1] +
+                           pixels[index + 2];
+
+    return brightTimesThree/3;
+}
+
+function getPixelIndex (x,y){
+    return x + (y*width) * 4
 }
 
 function walk (){
@@ -18,7 +36,7 @@ function walk (){
             if(walkerPositionX < width){
                 walkerPositionX += 10;
                 
-                let pixelColor = getPixelIndex(walkerPositionX,walkerPositionY);
+                
                 
                 //write true for the index on the dict
                 //if true on the dict make it false and change color
@@ -55,7 +73,6 @@ function walk (){
 
 }
 
-let visitedPixels = createStringDict();
 //create a dict, keys are for every pixel index
 //OPTIMIZE: dict has only indexes for R value, increments of four 
 //(may be map function)
@@ -66,12 +83,6 @@ function setup() {
 	walkerPositionX = width/2;
 	walkerPositionY = height/2;
     background(80);
-
-    loadPixels();
-    for (i in pixels){
-        visitedPixels.set(i, false);
-    }
-    updatePixels();
 
     console.log(pixels);
     console.log(getPixelIndex(5,6));
@@ -100,9 +111,7 @@ function draw(){
     //run the random function a set number of times
     //stop the random funtion, draw a an outline around the dots
 
-    loadPixels();
-
     walk();
 
-    updatePixels();
+    
 }
