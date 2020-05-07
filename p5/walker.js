@@ -20,7 +20,6 @@ function walk (){
                 
                 let pixelColor = getPixelIndex(walkerPositionX,walkerPositionY);
                 
-                //call the function for getting the pixel index
                 //write true for the index on the dict
                 //if true on the dict make it false and change color
                 //OPTIMIZE: write 3-4 different vaules on the dict 
@@ -56,7 +55,7 @@ function walk (){
 
 }
 
-let visitedPixels = {}
+let visitedPixels = createStringDict();
 //create a dict, keys are for every pixel index
 //OPTIMIZE: dict has only indexes for R value, increments of four 
 //(may be map function)
@@ -70,9 +69,7 @@ function setup() {
 
     loadPixels();
     for (i in pixels){
-        visitedPixels = {
-            i: false,
-        };
+        visitedPixels.set(i, false);
     }
     updatePixels();
 
