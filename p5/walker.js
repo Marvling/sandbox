@@ -1,12 +1,6 @@
-//TODO: make a class for walker
 
 var walkerPositionX;
 var walkerPositionY;
-
-let visitedArrays = [];
-let visitedPixels = new p5.TypedDict();
-
-
 
 function getPixelValueR (x,y){
     loadPixels();
@@ -35,15 +29,15 @@ function walk (){
         case 0:
             if(walkerPositionX < width){
                 walkerPositionX += 10;
+                console.log('anan');
                 
+
+                var brightValue = getPixelValueBrightness(walkerPositionX, walkerPositionY);
                 
-                
-                //write true for the index on the dict
-                //if true on the dict make it false and change color
-                //OPTIMIZE: write 3-4 different vaules on the dict 
-                //based on the times that index has been visited
-                
-                stroke(0);
+                if (brightValue == 0){
+                    console.log(brightValue);
+                    stroke(255);
+                }
             }
             break;
         case 1:
@@ -82,24 +76,16 @@ function setup() {
 	
 	walkerPositionX = width/2;
 	walkerPositionY = height/2;
-    background(80);
-
-    console.log(pixels);
-    console.log(getPixelIndex(5,6));
-    console.log(visitedPixels);
-
-    
+    background(214); 
+    frameRate(10) 
 
 }
 
 function draw(){
     
-    
     point(walkerPositionX, walkerPositionY);
-    stroke(255);
-    strokeWeight(2)
-
-    
+    stroke(0);
+    strokeWeight(10);
     
     //Change color when the point hits the same coordinte more than once
     // divide the canvas into a grid
