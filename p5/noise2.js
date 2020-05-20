@@ -9,7 +9,7 @@ let oldY = -1;
 function setup() {
     createCanvas(600, 600);
 
-    background(255);
+    background(150);
 
 }
 
@@ -32,6 +32,6 @@ function draw() {
 
     // let y = noise(xOff2) * height;
 
-    xOff1 += 0.005
-    xOff2 += 0.5
+    xOff1 += 0.05
+    xOff2 += 0.005
 }
