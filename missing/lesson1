@@ -1,0 +1,1 @@
+stat -f "%t%Sm" ./semester

@@ -1,0 +1,13 @@
+hello.txt
+last-modified.txt
+lesson1
+selam.txt
+semester
+text_ls.txt
+Adobe
+Book1.xlsx
+C4D
+GitHub
+Maxon_CINEMA_4D_Studio_R21.026_mac-torrents.io.zip
+Processing
+missing
