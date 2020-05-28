@@ -1,6 +1,6 @@
-#! bin/bash
+#!/bin/bash
 
-cd "$marco"
+cd "$marco" || pass
 
 if [[ $? -ne 0 ]]; then
         echo "Marco does not exist"
