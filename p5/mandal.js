@@ -10,6 +10,9 @@ function simetri(angle, x, y, flip = false) {
     x -= width / 2.
     y -= height / 2.
 
+    x = Math.abs(x)
+    y = Math.abs(y)
+
     if (flip) {
         x = x
         y *= -1
