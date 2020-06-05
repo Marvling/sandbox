@@ -42,7 +42,6 @@ function keyPressed() {
         strokeColor = color(255, 204, 0)
     } else if (keyCode === RIGHT_ARROW) {
         strokeColor = color(187, 246, 250);
-        console.log('anan');
 
     }
 }
