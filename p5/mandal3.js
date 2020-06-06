@@ -1,10 +1,11 @@
 let linesNumber = 32;
 let angle;
+let canvas;
 
 let strokeColor;
 
 function setup() {
-    createCanvas(windowWidth, windowHeight);
+    canvas = createCanvas(windowWidth, windowHeight);
     background(150);
 
     angle = 2 * PI / linesNumber;
@@ -42,6 +43,7 @@ function keyPressed() {
         strokeColor = color(255, 204, 0)
     } else if (keyCode === RIGHT_ARROW) {
         strokeColor = color(187, 246, 250);
-
+    } else if (keyCode === UP_ARROW) {
+        saveCanvas(canvas, 'mandal', 'png')
     }
 }
