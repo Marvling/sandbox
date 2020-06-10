@@ -13,7 +13,7 @@ function setup() {
 }
 
 function mouseDragged() {
-    translate(width / 2, height / 2);
+    // translate(width / 2, height / 2);
     for (let i = 0; i < linesNumber; i++) {
         rotate(angle);
         if (i % 2 == 0) {
@@ -32,6 +32,7 @@ function mouseDragged() {
 }
 
 function draw() {
+    translate(width / 2, height / 2)
 
     noFill();
     stroke(strokeColor);
