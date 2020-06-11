@@ -50,7 +50,7 @@ function timeIt() {
 function draw() {
     background(150);
 
-    for (let i = 0; i < 5; i++) {
+    for (let i = 0; i < length.secondsBinary; i++) {
         if (secondsBinary[i] === '1') {
             fill(255);
         }
