@@ -11,9 +11,10 @@ let button;
 
 let bgColor;
 
-let circleX;
-let circleY;
-let circleR;
+let rectX;
+let rectY;
+let rectH;
+let rectW;
 
 let x2 = 0;
 
@@ -188,12 +189,13 @@ function drawColumn(decimal, xCoord = 500) {
     }
 }
 
-function drawFill() {
+function drawRect() {
 
-    let yRange = map(miliseconds, 100, 0, circleY - circleR / 2, circleY + circleR / 2);
+    let yRange = map(miliseconds, 100, 0, 0, rectH);
 
-    x2 = map(miliseconds, 0, 100, 0, circleR / 2);
-    line(width / 2, yRange, circleX + x2, yRange);
+    fill(255)
+    rect(rectX, rectY, rectW, yRange);
+
 }
 
 function draw() {
@@ -201,11 +203,12 @@ function draw() {
     background(bgColor);
     noFill();
 
-    circleX = width / 2;
-    circleY = height / 2;
-    circleR = 100;
+    rectX = width / 2;
+    rectY = height / 2;
+    rectH = 100;
+    rectW = 50;
 
-    drawFill();
+    rect(rectX, rectY, rectW, rectH);
 
-    ellipse(circleX, circleY, circleR);
+    drawRect();
 }
