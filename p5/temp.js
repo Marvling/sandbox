@@ -190,10 +190,21 @@ function drawColumn(decimal, xCoord = 500) {
 
 function drawFill() {
 
+    //USE TRANSLATE
+
     let yRange = map(miliseconds, 100, 0, circleY - circleR / 2, circleY + circleR / 2);
 
-    x2 = map(miliseconds, 0, 100, 0, circleR / 2);
-    line(width / 2, yRange, circleX + x2, yRange);
+    let x1 = map(miliseconds, 0, 100, width / 2, width / 2 + 100);
+    // let x2 = miliseconds * circleX
+    console.log(x2);
+
+
+    if (miliseconds > 50) {
+        // x2 = miliseconds * - circleX * 0.01
+        x1 = map(miliseconds, 100, 0, width / 2, width / 2 + 100);
+    }
+
+    line(width / 2, yRange, x1, yRange);
 }
 
 function draw() {
@@ -205,7 +216,13 @@ function draw() {
     circleY = height / 2;
     circleR = 100;
 
+    rectMode(CENTER);
     drawFill();
+    push();
 
+    translate(circleX, circleY);
+    rotate(45 * PI / 180);
+    rect(0, 0, circleR / sqrt(2), circleR / sqrt(2));
+    pop();
     ellipse(circleX, circleY, circleR);
 }
