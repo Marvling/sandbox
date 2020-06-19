@@ -18,7 +18,6 @@ function setup() {
     button = createButton('start timer');
     button.mousePressed(doTimer);
     bgColor = color('#d2d6d6');
-    frameRate(100);
 }
 
 function doTimer() {
@@ -183,44 +182,63 @@ function drawBinaryClock(decimal, xCoord = 500) {
     }
 }
 
-function drawLine(centerX, centerY, fillHeight, fillTime) {
+function drawLineDiamond(centerX, centerY, fullHeight, duration) {
 
-    let yRange = map(fillTime, 100, 0, centerY - fillHeight / 2, centerY + fillHeight / 2);
+    let yRange = map(duration, 100, 0, centerY - fullHeight / 2, centerY + fullHeight / 2);
 
-    let x1 = map(fillTime, 0, 100, centerX, centerX + 100);
-    let x2 = map(fillTime, 0, 100, centerX, centerX - 100);
+    let x1 = map(duration, 0, 100, centerX, centerX + 100);
+    let x2 = map(duration, 0, 100, centerX, centerX - 100);
 
-    if (fillTime > 50) {
-        x1 = map(fillTime, 100, 0, centerX, centerX + 100);
-        x2 = map(fillTime, 100, 0, centerX, centerX - 100);
+    if (duration > 50) {
+        x1 = map(duration, 100, 0, centerX, centerX + 100);
+        x2 = map(duration, 100, 0, centerX, centerX - 100);
     }
 
     line(x2, yRange, x1, yRange);
 }
 
-function drawRectFill(centerX, centerY, fillHeight, fillTime) {
+function drawFillDiamond(centerX, centerY, fullHeight, duration) {
 
-    let yRange = map(fillTime, 100, 0, centerY - fillHeight / 2, centerY + fillHeight / 2);
+    let yRange = map(duration, 100, 0, centerY - fullHeight / 2, centerY + fullHeight / 2);
+    let yRangeStop = map(duration, 100, 0, centerY - fullHeight / 2, centerY + fullHeight / 2);
 
-    let x1 = map(fillTime, 0, 100, centerX, centerX + 100);
-    let x2 = map(fillTime, 0, 100, centerX, centerX - 100);
+    let yTracer = map(duration, 0, 100, -1, 1);
+    let yValue = map(yTracer, -1, 1, -fullHeight / 2, fullHeight / 2);
 
-    if (fillTime > 50) {
-        x1 = map(fillTime, 100, 0, centerX, centerX + 100);
-        x2 = map(fillTime, 100, 0, centerX, centerX - 100);
+    let x1 = yRange - fullHeight/2;
+    let x2 = fullHeight/2 - abs(yValue) + centerX;
+
+    let x1d = yRange - fullHeight/2;
+    let x2d = fullHeight/2 - abs(yValue) + centerX;
+    
+    if (duration > 50) {
+        x1 = x1 + map(duration, 0 , 100, -fullHeight, fullHeight );
+        x1d = centerX - fullHeight/2 //duranlar
+        x2d = centerX + fullHeight/2 //duranlar
+        yRangeStop = centerY //duranlar
     }
 
-    line(x2, yRange, x1, yRange);
+    push();
+    // noFill();
+    beginShape();
+    vertex(x1d, yRangeStop) //sol taşo duran
+    vertex(x1, yRange) // sol taşo
+    vertex(centerX, yRange) //yüksel bey
+    vertex(x2, yRange) // sağ taşo
+    vertex(x2d, yRangeStop); //sağ taşo duran
+    vertex(centerX, centerY + fullHeight/2) //sabit abi
+    endShape(CLOSE);
+
 }
 
-function drawLineCircle(centerX, centerY, fillHeight, fillTime) {
+function drawLineCircle(centerX, centerY, fullHeight, duration) {
 
-    let yRange = map(fillTime, 0, 100, centerY + fillHeight / 2, centerY - fillHeight / 2);
+    let yRange = map(duration, 0, 100, centerY + fullHeight / 2, centerY - fullHeight / 2);
 
-    let yTracer = map(fillTime, 0, 100, -1, 1);
-    let yValue = map(yTracer, -1, 1, -fillHeight / 2, fillHeight / 2);
+    let yTracer = map(duration, 0, 100, -1, 1);
+    let yValue = map(yTracer, -1, 1, -fullHeight / 2, fullHeight / 2);
 
-    let x1 = sqrt(pow(fillHeight / 2, 2) - pow(yValue, 2));
+    let x1 = sqrt(pow(fullHeight / 2, 2) - pow(yValue, 2));
 
     line(centerX - x1, yRange, centerX + x1, yRange);
 }
@@ -229,20 +247,32 @@ function drawLineCircle(centerX, centerY, fillHeight, fillTime) {
 function draw() {
 
     background(bgColor);
-    noFill();
 
     let circleX = width / 2;
     let circleY = height / 2;
     let circleR = 100;
 
+    drawFillDiamond(circleX, circleY, circleR, miliseconds);
+    // drawLineDiamond(circleX, circleY, circleR, miliseconds);
+
+    push();
+    noFill();
+    stroke(255);
     rectMode(CENTER);
-    drawLineCircle(circleX, circleY, circleR, miliseconds);
-    angleMode(RADIANS);
+    translate(circleX, circleY);
+    ellipse(0, 0, circleR);
+    rect(0, 0, circleR, circleR);
+    rotate(45 * PI / 180);
+    // rect(0, 0, circleR / sqrt(2), circleR / sqrt(2));
+    pop();
+
+    // rect(circleX, circleY, circleR, circleR);
 
     // push();
-    // translate(circleX, circleY);
-    // rotate(45 * PI / 180);
-    // rect(0, 0, circleR / sqrt(2), circleR / sqrt(2));
+    // rectMode(CORNERS);
+    // rect(circleX, circleY+circleR, circleX, circleY-circleR);
     // pop();
-    ellipse(circleX, circleY, circleR);
+
+
+    // ellipse(circleX, circleY, circleR);
 }
