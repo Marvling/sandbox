@@ -11,19 +11,14 @@ let button;
 
 let bgColor;
 
-let circleX;
-let circleY;
-let circleR;
-
-let x2 = 0;
-
 function setup() {
     createCanvas(600, 600);
     fill(0);
     timer = createP(nf(seconds, 2) + ':' + nf(miliseconds, 2,));
     button = createButton('start timer');
     button.mousePressed(doTimer);
-    bgColor = color('#d2d6d6')
+    bgColor = color('#d2d6d6');
+    frameRate(100);
 }
 
 function doTimer() {
@@ -97,7 +92,7 @@ function timeIt() {
     }
 }
 
-function drawColumn(decimal, xCoord = 500) {
+function drawBinaryClock(decimal, xCoord = 500) {
 
     //make two variables for on-off colors
 
@@ -188,41 +183,68 @@ function drawColumn(decimal, xCoord = 500) {
     }
 }
 
-function drawFill() {
+function drawLine(centerX, centerY, fillHeight, fillTime) {
 
-    //USE TRANSLATE
+    let yRange = map(fillTime, 100, 0, centerY - fillHeight / 2, centerY + fillHeight / 2);
 
-    let yRange = map(miliseconds, 100, 0, circleY - circleR / 2, circleY + circleR / 2);
+    let x1 = map(fillTime, 0, 100, centerX, centerX + 100);
+    let x2 = map(fillTime, 0, 100, centerX, centerX - 100);
 
-    let x1 = map(miliseconds, 0, 100, width / 2, width / 2 + 100);
-    // let x2 = miliseconds * circleX
-    console.log(x2);
-
-
-    if (miliseconds > 50) {
-        // x2 = miliseconds * - circleX * 0.01
-        x1 = map(miliseconds, 100, 0, width / 2, width / 2 + 100);
+    if (fillTime > 50) {
+        x1 = map(fillTime, 100, 0, centerX, centerX + 100);
+        x2 = map(fillTime, 100, 0, centerX, centerX - 100);
     }
 
-    line(width / 2, yRange, x1, yRange);
+    line(x2, yRange, x1, yRange);
 }
+
+function drawRectFill(centerX, centerY, fillHeight, fillTime) {
+
+    let yRange = map(fillTime, 100, 0, centerY - fillHeight / 2, centerY + fillHeight / 2);
+
+    let x1 = map(fillTime, 0, 100, centerX, centerX + 100);
+    let x2 = map(fillTime, 0, 100, centerX, centerX - 100);
+
+    if (fillTime > 50) {
+        x1 = map(fillTime, 100, 0, centerX, centerX + 100);
+        x2 = map(fillTime, 100, 0, centerX, centerX - 100);
+    }
+
+    line(x2, yRange, x1, yRange);
+}
+
+function drawLineCircle(centerX, centerY, fillHeight, fillTime) {
+
+    let yRange = map(fillTime, 0, 100, centerY + fillHeight / 2, centerY - fillHeight / 2);
+
+    angleMode(DEGREES);
+    let xSin = map(fillTime, 0, 100, 0, 180);
+    // let xCircle = sqrt(pow(fillHeight / 2, 2) - pow(fillTime, 2));
+
+    let x1 = sin(xSin) * fillHeight / 2
+    console.log(x1);
+
+    line(centerX, yRange, x1 + centerX, yRange);
+}
+
 
 function draw() {
 
     background(bgColor);
     noFill();
 
-    circleX = width / 2;
-    circleY = height / 2;
-    circleR = 100;
+    let circleX = width / 2;
+    let circleY = height / 2;
+    let circleR = 100;
 
     rectMode(CENTER);
-    drawFill();
-    push();
+    drawLineCircle(circleX, circleY, circleR, miliseconds);
+    angleMode(RADIANS);
 
+    push();
     translate(circleX, circleY);
     rotate(45 * PI / 180);
     rect(0, 0, circleR / sqrt(2), circleR / sqrt(2));
     pop();
-    ellipse(circleX, circleY, circleR);
+    ellipse(circleX, circleY, sin(PI) * circleR);
 }
