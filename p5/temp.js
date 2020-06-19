@@ -217,14 +217,12 @@ function drawLineCircle(centerX, centerY, fillHeight, fillTime) {
 
     let yRange = map(fillTime, 0, 100, centerY + fillHeight / 2, centerY - fillHeight / 2);
 
-    angleMode(DEGREES);
-    let xSin = map(fillTime, 0, 100, 0, 180);
-    // let xCircle = sqrt(pow(fillHeight / 2, 2) - pow(fillTime, 2));
+    let yTracer = map(fillTime, 0, 100, -1, 1);
+    let yValue = map(yTracer, -1, 1, -fillHeight / 2, fillHeight / 2);
 
-    let x1 = sin(xSin) * fillHeight / 2
-    console.log(x1);
+    let x1 = sqrt(pow(fillHeight / 2, 2) - pow(yValue, 2));
 
-    line(centerX, yRange, x1 + centerX, yRange);
+    line(centerX - x1, yRange, centerX + x1, yRange);
 }
 
 
@@ -241,10 +239,10 @@ function draw() {
     drawLineCircle(circleX, circleY, circleR, miliseconds);
     angleMode(RADIANS);
 
-    push();
-    translate(circleX, circleY);
-    rotate(45 * PI / 180);
-    rect(0, 0, circleR / sqrt(2), circleR / sqrt(2));
-    pop();
-    ellipse(circleX, circleY, sin(PI) * circleR);
+    // push();
+    // translate(circleX, circleY);
+    // rotate(45 * PI / 180);
+    // rect(0, 0, circleR / sqrt(2), circleR / sqrt(2));
+    // pop();
+    ellipse(circleX, circleY, circleR);
 }
