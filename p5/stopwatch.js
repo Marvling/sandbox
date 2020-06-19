@@ -10,6 +10,7 @@ let interval;
 let button;
 
 let bgColor;
+let fillColor;
 
 function setup() {
     createCanvas(600, 600);
@@ -18,6 +19,7 @@ function setup() {
     button = createButton('start timer');
     button.mousePressed(doTimer);
     bgColor = color('#d2d6d6');
+    fillColor = color('#7b7ebc');
 }
 
 function doTimer() {
@@ -219,7 +221,8 @@ function drawFillDiamond(centerX, centerY, fullHeight, duration) {
     }
 
     push();
-    // noFill();
+    fill(fillColor);
+    noStroke();
     beginShape();
     vertex(x1d, yRangeStop) //sol taşo duran
     vertex(x1, yRange) // sol taşo
