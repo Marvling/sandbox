@@ -3,7 +3,8 @@
         {
             "name": "Mac",
             "includePath": [
-                "${workspaceFolder}/**"
+                "${workspaceFolder}/**",
+                "/usr/local/var/vcpkg/packages/raylib_x64-osx/include"
             ],
             "defines": [],
             "macFrameworkPath": [

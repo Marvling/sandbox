@@ -7,12 +7,14 @@
 #include <cmath>
 #include <ctime>
 
+#include "raylib.h"
+
 using namespace std;
 
 int globalVar = 0;
 const double decimalVar = 3.142;
 
-main()
+int main()
 {
     cout << "Hello World" << endl;
 
